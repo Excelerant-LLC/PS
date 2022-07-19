@@ -1,0 +1,7 @@
+##Get-Date -Format yyyy-MM-dd:hh:mm:ss > test.ini
+$lastrun = [DateTime]::parseexact((get-content -path .\test.ini),'yyyy-MM-dd:hh:mm:ss',$null)
+$lastrun
+
+$date = Get-Date -Format yyyy-MM-dd-hhmmss
+
+Get-ADObject -Properties * -Filter 'whenChanged -gt $lastrun' -IncludeDeletedObjects | Export-Csv -Path ".\$date-ChangedADObjects.csv"
